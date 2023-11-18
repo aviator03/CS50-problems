@@ -40,7 +40,7 @@ int count_letters(string text)
     for (int i = 0; i < text_len; i++)
     {
         char text_char = (int) text[i];
-        if (text_char != 32 && text_char != 33 && text_char != 46 && text_char != 63)
+        if (isalnum(text_char)/*text_char != 32 && text_char != 33 && text_char != 46 && text_char != 63*/)
         {
             letters++;
         }
@@ -56,7 +56,7 @@ int count_words(string text)
     for (int i = 0; i < text_len; i++)
     {
         char text_char = (int) text[i];
-        if (text_char == 32)
+        if (isblank(text_char))
         {
             spaces++;
         }
@@ -84,8 +84,8 @@ int count_sentences(string text)
 // coleman-liau index
 int cli(int words, int letters, int sentences)
 {
-    float col_L = (letters / words) * 100;
-    float col_S = (sentences / words) * 100;
+    float col_L = (float)(letters / words) * 100.00;
+    float col_S = (float)(sentences / words) * 100.00;
     float cli = (0.0588 * col_L) - (0.296 * col_S) - 15.8;
     int grade = round(cli);
     return grade;
